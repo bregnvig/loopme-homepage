@@ -67,6 +67,17 @@
   let h = 0;
   let raf = 0;
 
+  // canvas kan ikke læse CSS-variabler selv — hent dem, og igen når temaet skifter
+  let strandRGB = "69, 227, 210";
+  let glowRGB = "120, 245, 232";
+  const readTheme = () => {
+    const cs = getComputedStyle(document.documentElement);
+    strandRGB = cs.getPropertyValue("--canvas-rgb").trim() || strandRGB;
+    glowRGB = cs.getPropertyValue("--canvas-glow-rgb").trim() || glowRGB;
+  };
+  readTheme();
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change", readTheme);
+
   const resize = () => {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     const r = canvas.getBoundingClientRect();
@@ -106,7 +117,7 @@
         ctx.beginPath();
         ctx.moveTo(p0.x, p0.y);
         ctx.lineTo(p1.x, p1.y);
-        ctx.strokeStyle = `rgba(69, 227, 210, ${s.alpha * (1 - f) ** 2})`;
+        ctx.strokeStyle = `rgba(${strandRGB}, ${s.alpha * (1 - f) ** 2})`;
         ctx.lineWidth = s.width * (1 - f * 0.6);
         ctx.lineCap = "round";
         ctx.stroke();
@@ -114,8 +125,8 @@
 
       const head0 = point(head, s.scale);
       const glow = ctx.createRadialGradient(head0.x, head0.y, 0, head0.x, head0.y, 46);
-      glow.addColorStop(0, "rgba(120, 245, 232, 0.5)");
-      glow.addColorStop(1, "rgba(120, 245, 232, 0)");
+      glow.addColorStop(0, `rgba(${glowRGB}, 0.5)`);
+      glow.addColorStop(1, `rgba(${glowRGB}, 0)`);
       ctx.fillStyle = glow;
       ctx.beginPath();
       ctx.arc(head0.x, head0.y, 46, 0, Math.PI * 2);
