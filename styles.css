@@ -126,6 +126,21 @@ p { margin: 0; }
 }
 .eyebrow::before { content: "//"; color: var(--accent-deep); }
 
+/* inline links in running text */
+.about-body a,
+.role-what a,
+.f1-note a {
+  color: var(--accent-lit);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent-deep);
+  transition: text-decoration-color 0.25s ease, color 0.25s ease;
+}
+.about-body a:hover,
+.role-what a:hover,
+.f1-note a:hover { text-decoration-color: var(--accent-lit); }
+
 /* ── top bar ────────────────────────────────────────── */
 
 .topbar {
@@ -632,7 +647,6 @@ p { margin: 0; }
   max-width: var(--measure);
 }
 .f1-note p { color: var(--muted); }
-.f1-note a { color: var(--accent-lit); text-decoration-color: var(--accent-deep); }
 
 .aside {
   border-left: 2px solid var(--accent-deep);
