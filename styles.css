@@ -14,7 +14,7 @@
   --raised:      #0f2422;
   --line:        rgba(69, 227, 210, 0.14);
   --line-strong: rgba(69, 227, 210, 0.32);
-  --hairline:    var(--hairline);
+  --hairline:    rgba(69, 227, 210, 0.09);
 
   --accent:      #02a79e;
   --accent-lit:  #45e3d2;
@@ -30,7 +30,7 @@
   --chip-bg:       rgba(2, 167, 158, 0.06);
   --chip-bg-hover: rgba(2, 167, 158, 0.14);
   --wash-a:        rgba(2, 167, 158, 0.20);
-  --wash-b:        var(--hairline);
+  --wash-b:        rgba(69, 227, 210, 0.09);
   --grain-op:      0.4;
   --logo-glow:     rgba(2, 167, 158, 0.45);
   --progress-glow: rgba(69, 227, 210, 0.6);
