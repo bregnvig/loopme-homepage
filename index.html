@@ -4,11 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18469354630"></script>
+<!-- Google tag (gtag.js) — samtykke sættes til denied, før taggen overhovedet loades -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+
+  // Har den besøgende sagt ja før, gælder det med det samme — ikke først når banneret er tegnet.
+  try {
+    if (localStorage.getItem('loopme-consent') === 'granted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+    }
+  } catch (e) { /* private vindue, blokerede cookies — behold denied */ }
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18469354630"></script>
+<script>
   gtag('js', new Date());
 
   gtag('config', 'AW-18469354630');
@@ -487,10 +509,30 @@ d="m 0,0 c -44.428,0 -81.236,37.127 -117.617,45.173 l 35.58,165.887 c -3.004,0.2
 <footer class="foot">
   <div class="shell">
     <span>© 2026 Loopme · Flemming Bregnvig</span>
-    <a href="#top">Tilbage til toppen ↑</a>
+    <span class="foot-links">
+      <button type="button" class="linklike" id="consent-reopen">Cookies</button>
+      <a href="#top">Tilbage til toppen ↑</a>
+    </span>
   </div>
 </footer>
 
+<div class="consent" id="consent" role="region" aria-label="Cookiesamtykke" hidden>
+  <div class="consent-inner">
+    <div class="consent-copy">
+      <p class="consent-title">Cookies</p>
+      <p>
+        Loopme sætter cookies fra Google Ads for at måle, om annoncer virker.
+        Siden fungerer præcis lige så godt, hvis du siger nej.
+      </p>
+    </div>
+    <div class="consent-actions">
+      <button type="button" class="btn" data-consent="denied">Afvis</button>
+      <button type="button" class="btn btn-solid" data-consent="granted">Accepter</button>
+    </div>
+  </div>
+</div>
+
+<script src="consent.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
